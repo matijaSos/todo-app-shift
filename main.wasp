@@ -1,0 +1,69 @@
+app todoAppShift {
+  wasp: {
+    version: "^0.11.4"
+  },
+  title: "todo-app-shift",
+  auth: {
+    userEntity: User,
+    externalAuthEntity: SocialLogin,
+    methods: {
+      google: {}
+    },
+    onAuthFailedRedirectTo: "/login"
+  },
+
+  client: {
+    rootComponent: import App from "@client/layout/App"
+  },
+
+  dependencies: [
+    ("@chakra-ui/react", "2.7.1")
+  ]
+}
+
+route RootRoute { path: "/", to: MainPage }
+page MainPage {
+  authRequired: true,
+ component: import Main from "@client/MainPage.tsx"
+}
+
+route LoginRoute { path: "/login", to: Login }
+page Login {
+  component: import Login from "@client/auth/LoginPage"
+}
+
+route SignupRoute { path: "/signup", to: Signup }
+page Signup {
+  component: import Signup from "@client/auth/SignupPage"
+}
+
+entity Task {=psl
+  id          Int     @id @default(autoincrement())
+  description String
+  isDone      Boolean @default(false)
+psl=}
+
+crud tasksCrud {
+  entity: Task,
+  operations: {
+    create: {},
+    getAll: {},
+    update: {},
+    delete: {},
+  }
+}
+
+entity User {=psl
+    id                        Int           @id @default(autoincrement())
+    externalAuthAssociations  SocialLogin[]
+psl=}
+
+entity SocialLogin {=psl
+  id          Int       @id @default(autoincrement())
+  provider    String
+  providerId  String
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      Int
+  createdAt   DateTime  @default(now())
+  @@unique([provider, providerId, userId])
+psl=}
