@@ -14,7 +14,7 @@ import logout from '@wasp/auth/logout'
 
 const Navbar = () => {
   return (
-    <Box bg='purple.100'>
+    <Box bg='#1a1736'>
       <Container maxW={'container.lg'}>
         <Flex h={16} alignItems={'center'} justifyContent={'end'}>
           <Button onClick={() => logout()}>Logout</Button>

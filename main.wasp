@@ -3,14 +3,21 @@ app todoAppShift {
     version: "^0.11.4"
   },
   title: "todo-app-shift",
+
+
+
   auth: {
+    methods: {
+      usernameAndPassword: {},
+      google: {},
+      gitHub: {}
+    },
+    onAuthFailedRedirectTo: "/login",
     userEntity: User,
     externalAuthEntity: SocialLogin,
-    methods: {
-      google: {}
-    },
-    onAuthFailedRedirectTo: "/login"
   },
+
+
 
   client: {
     rootComponent: import App from "@client/layout/App"
@@ -24,7 +31,7 @@ app todoAppShift {
 route RootRoute { path: "/", to: MainPage }
 page MainPage {
   authRequired: true,
- component: import Main from "@client/MainPage.tsx"
+  component: import Main from "@client/MainPage.tsx"
 }
 
 route LoginRoute { path: "/login", to: Login }
@@ -55,6 +62,8 @@ crud tasksCrud {
 
 entity User {=psl
     id                        Int           @id @default(autoincrement())
+    username                  String        @unique
+    password                  String
     externalAuthAssociations  SocialLogin[]
 psl=}
 
