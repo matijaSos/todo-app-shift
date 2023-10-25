@@ -20,7 +20,6 @@ const MainPage = ({ user }: { user: User }) => {
   return (
     <VStack mt={10} mx='auto' spacing={10} justify='center' align='center' w='400px'>
       <HStack>
-        <Image boxSize='125px' src={shiftDuckUrl} />
         <Heading>To Do's</Heading>
       </HStack>
 

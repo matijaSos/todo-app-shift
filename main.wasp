@@ -1,8 +1,8 @@
-app todoAppShift {
+app todoAppArmada {
   wasp: {
     version: "^0.11.4"
   },
-  title: "todo-app-shift",
+  title: "todo-app-armada",
 
 
 
